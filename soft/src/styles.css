@@ -4,3 +4,6 @@
 
 @import "~nvd3/build/nv.d3.css";
 
+body{
+  background-color: #f3f3f3;
+}

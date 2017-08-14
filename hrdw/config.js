@@ -16,8 +16,8 @@ function loadConfig(){
     }catch(err){
       //default config
       resolve({
-        speed: 30,
-        temp: 10,
+        speed: 3,
+        temp: 2,
         mem: 1
       });
     }

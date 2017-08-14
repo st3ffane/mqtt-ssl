@@ -1,0 +1,98 @@
+<div *ngIf="connected && hardware_present; else loader">
+  <!-- information sur le hardware -->
+  <md-card >
+    <md-card-header>
+      <md-card-title>Hardware Informations</md-card-title>
+      
+    </md-card-header>
+    <md-card-content>
+      <md-list>
+        <md-list-item>
+          <span md-line class="label">manufacturer</span><span md-line class="value">{{hrdw_infos?.manufacturer}}</span>
+        </md-list-item>
+        <md-list-item>
+          <span md-line class="label">brand</span><span md-line class="value">{{hrdw_infos?.brand}}</span>
+        </md-list-item>
+       
+        <md-list-item>
+          <span md-line class="label">model</span><span md-line class="value">{{hrdw_infos?.model}}</span>
+        </md-list-item>
+        <md-list-item>
+          <span md-line class="label">speed</span><span md-line class="value">{{hrdw_infos?.speed}} Hz</span>
+        </md-list-item>
+       
+      </md-list>
+
+
+    </md-card-content>
+    <md-card-actions>
+      <a [routerLink]="['/config']" md-raised-button class='md-raised-btn'>Configuration</a>
+      
+    </md-card-actions>
+  </md-card>
+
+
+  <!-- les differents graphs necessaires -->
+  <!-- speed -->
+  <md-card class="example-card"  >
+        <md-card-header>
+          <md-card-title>CPU Speed</md-card-title>
+          
+        </md-card-header>
+        
+        <md-card-content>
+          
+          <nvd3 [options]="speed_options" [data]="speed" class="with-3d-shadow"></nvd3>
+          
+          
+        </md-card-content>
+        
+       
+      </md-card>
+  <!-- temp -->
+  <md-card class="example-card"  >
+        <md-card-header>
+          <md-card-title>CPU Temperature</md-card-title>
+          
+        </md-card-header>
+        
+        <md-card-content>
+          
+          <nvd3 [options]="temp_options" [data]="temp" class="with-3d-shadow with-transitions"></nvd3>
+          
+          
+        </md-card-content>
+        
+       
+      </md-card>
+  <!-- memoire -->
+  <md-card class="example-card"  >
+        <md-card-header>
+          <md-card-title>Memory usage</md-card-title>
+          
+        </md-card-header>
+        
+        <md-card-content>
+          
+          <nvd3 [options]="mem_options" [data]="mem" class="with-3d-shadow with-transitions"></nvd3>
+          
+          
+        </md-card-content>
+        
+       
+      </md-card>
+
+
+
+
+</div>
+<ng-template #loader>
+  <!-- waitin for connection -->
+  <div class="cssload-thecube">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+</div>
+<span class="loading-msg">{{wainting_msg}}</span>
+</ng-template>
