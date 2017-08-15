@@ -11,14 +11,16 @@ function loadConfig(){
   return new Promise( (resolve, reject)=>{
     try{
       config = JSON.parse(fs.readFileSync('./conf.json'));
+      console.log(config)
       resolve(config);
 
     }catch(err){
       //default config
+      console.log(err)
       resolve({
-        speed: 3,
-        temp: 2,
-        mem: 1
+        speed: 3000,
+        temp: 2000,
+        mem: 1000
       });
     }
   });
@@ -30,9 +32,9 @@ function saveConfig(conf){
       reject("no conf object");
     }
     try{
-      fs.writeFile(JSON.stringify(conf), ()=>{
+      fs.writeFile('./conf.json',JSON.stringify(conf), ()=>{
         
-        resolve(config);
+        resolve(conf);
       });
       
     } catch(err){

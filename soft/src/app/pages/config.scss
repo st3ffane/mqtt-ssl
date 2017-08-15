@@ -1,0 +1,20 @@
+form{
+  md-card{
+
+    md-card-content{
+
+      md-list{
+        md-list-item{
+          span{
+            min-width: 200px;
+            text-align: right;
+            margin-right: 12px;
+          }
+          md-slider{
+            min-width: calc(100% - 212px);
+          }
+        }
+      }
+    }
+  }
+}

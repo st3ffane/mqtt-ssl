@@ -1,6 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {MQTTService} from "../core/mqtt.service";
 import {Observable} from "rxjs/Observable";
+import {Subscription} from "rxjs/Subscription";
+
 
 //pour les affichages
 declare var d3;
@@ -18,7 +20,7 @@ export class MainPageComponent implements OnInit{
   hardware_present:boolean = false;
   wainting_msg:string;
 
-
+  events_obs:Subscription;
   //le necessaire pour les differents graphiques
   hrdw_infos:any = {};
   speed:any = [{key:"average",values:[]},{key:"min",values:[]},{key:"max",values:[]}];
@@ -64,7 +66,7 @@ export class MainPageComponent implements OnInit{
         
        showValues: true,
         
-        duration: 500,
+        duration: 0,
         xAxis: {
           axisLabel: 'Temp'
         },
@@ -88,7 +90,7 @@ export class MainPageComponent implements OnInit{
         
        showValues: true,
         
-        duration: 500,
+        duration: 0,
         xAxis: {
           axisLabel: 'time'
         },
@@ -106,9 +108,15 @@ export class MainPageComponent implements OnInit{
 
   constructor(private _mqtt:MQTTService){}
   ngOnInit(){
-    this.wainting_msg = "Connecting to MQTT Broker....";
 
-    this._mqtt.getEventsAsObservable().subscribe( (events)=>{
+
+    console.log("init main component");
+    this.wainting_msg = "Connecting to MQTT Broker....";
+    this.speed = [{key:"average",values:[]},{key:"min",values:[]},{key:"max",values:[]}];
+    this.mem = [{key:"total",values:[]},{key:"used",values:[]},{key:"active",values:[]},{key:"available",values:[]}];
+    this.temp = [{key:"main",values:[]},{key:"max",values:[]}];
+
+    this.events_obs = this._mqtt.getEventsAsObservable().subscribe( (events)=>{
       
       
       //suivant le topic...
@@ -148,7 +156,7 @@ export class MainPageComponent implements OnInit{
 
 
     //connection
-    this._mqtt.connectToMosquitto(['hrdw/state','hrdw/hello','hrdw/speed','hrdw/temp','hrdw/mem']).then( (connected:boolean)=>{
+    this._mqtt.connectToMosquitto().then( (connected:boolean)=>{
       if(connected){
         //youpi!
         this.connected = true;
@@ -158,13 +166,18 @@ export class MainPageComponent implements OnInit{
 
   }
 
+  ngOnDestroy(){
+    this.events_obs.unsubscribe();
+  }
+
   private addDatas(dt, cible){
     let dts = [];
     for (let key of Object.keys(dt)){
       let arr = this.getArrayByKey(key,cible);
-      if(arr.length>10){
-        arr.shift();
-      }
+      // if(arr.length>30){
+      //   console.log("shift first elem");
+      //   arr.shift();
+      // }
       arr.push({x:new Date().getTime(), y:dt[key]?dt[key]: 0});
       dts.push({key:key,values:arr});
     }

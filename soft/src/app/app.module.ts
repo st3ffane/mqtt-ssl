@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from "@angular/forms";
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { CoreModule } from "./core/core.module";
@@ -22,10 +23,12 @@ import {ConfigComponent} from "./pages/config.component";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     NvD3Module,
     CoreModule.forRoot({
       host:"localhost",
-      port:1884  //port pour le WS
+      port:1884,  //port pour le WS
+      subscribes:['hrdw/state','hrdw/hello','hrdw/speed','hrdw/temp','hrdw/mem','hrdw/config_set']
     }),
     MaterialCustomModule,
     AppRoutingModule,

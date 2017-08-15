@@ -72,3 +72,4 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 // import 'intl/locale-data/jsonp/en';
 import 'd3/d3.min.js';
 import 'nvd3/build/nv.d3.min.js';
+import 'hammerjs/hammer.min.js';

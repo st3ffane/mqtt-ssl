@@ -1,0 +1,58 @@
+<form #heroForm="ngForm" (submit)="saveConfig()">
+<md-card>
+  <md-card-header>
+    <md-card-title>Configuration</md-card-title>
+    <md-card-subtitle>Set refresh rate (in sec) for all the displayable datas</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <md-list>
+      <md-list-item>
+        <span>Speed Refresh:</span>
+        <md-slider
+              max="3000"
+              min="100"
+              step="100"
+              thumb-label="true"
+              [(ngModel)]="speed"
+              name="speed"
+              >
+          </md-slider>
+      </md-list-item>
+
+      <md-list-item>
+        <span>Temperature Refresh:</span>
+        <md-slider
+              max="3000"
+              min="100"
+              step="100"
+              thumb-label="true"
+              [(ngModel)]="temp"
+              name="temperature"
+              >
+          </md-slider>
+      </md-list-item>
+
+
+      <md-list-item>
+        <span>Memory Usage Refresh:</span>
+        <md-slider
+              max="3000"
+              min="100"
+              step="100"
+              thumb-label="true"
+              [(ngModel)]="mem"
+              name="memory"
+              >
+          </md-slider>
+      </md-list-item>
+    </md-list>
+  
+
+  </md-card-content>
+  <md-card-actions>
+    <button type="submit" md-raised-button>Save</button>
+    <a routerLink="/hrdw" md-button>Back</a>
+  </md-card-actions>
+</md-card>
+
+</form>
