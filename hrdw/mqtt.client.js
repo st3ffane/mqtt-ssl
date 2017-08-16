@@ -2,6 +2,7 @@
  * client mqtt pour l'application
  */
 const mqtt = require("async-mqtt");
+const fs = require("fs");
 
 //connection au broker avec clientid et session:true
 const client_id = "HRDW0005";
@@ -24,10 +25,12 @@ var connectOptions = {
     protocolId: "MQTT",
     protocolVersion: 4,
     clean: false,
+    //username:"user1",
+    //password:"user1",
     /*reconnectPeriod: 2000,
-    connectTimeout: 2000,
-    key: fs.readFileSync("./keys/key.pem"),
-    cert: fs.readFileSync("./keys/cert.pem"),*/
+    connectTimeout: 2000,*/
+    key: fs.readFileSync("../certs/user1.key"),
+    cert: fs.readFileSync("../certs/user1.crt"),
     rejectUnauthorized: false,//a cause du certificat auto-signé!!!
 };
 
@@ -36,6 +39,7 @@ function connect(){
      let client = mqtt.connect(connectOptions);//'mqtt://localhost',connect_config);
       //connection OK, subscribe et publish...
       client.on("connect", (connack)=>{
+        console.log(connack);
       //if(!connack.sessionPresent){
           console.log("subscribe to config change");
           //subscribe to config change

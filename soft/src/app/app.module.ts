@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import {MainPageComponent} from "./pages/main.page.component";
 import {ConfigComponent} from "./pages/config.component";
 
+//loading key et crt
+import {KEY,CERTIFICAT} from "./certificat";
 
 const connectOptions = {
     host: "127.0.0.1",
@@ -23,6 +25,10 @@ const connectOptions = {
     protocolId: "MQTT",
     protocolVersion: 4,
     clean: true,
+    username:"nguser",
+    password:"nguser",
+     key: KEY,
+    cert: CERTIFICAT,
     /*reconnectPeriod: 2000,
     connectTimeout: 2000,
     key: fs.readFileSync("./keys/key.pem"),
