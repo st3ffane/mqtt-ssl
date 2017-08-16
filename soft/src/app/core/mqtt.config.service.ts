@@ -1,5 +1,4 @@
 export class MQTTServiceConfig{
-  host:string;
-  port:number;
+  options:any;
   subscribes:Array<string>;
 }

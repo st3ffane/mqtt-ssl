@@ -6,15 +6,15 @@ const mqtt = require("async-mqtt");
 //connection au broker avec clientid et session:true
 const client_id = "HRDW0005";
 
-const connect_config = {
-  clientId: client_id,
-  clean:false,//met en place la session
-  will:{
-    topic:"hrdw/state",
-    payload:"offline",
-    retain:true
-  }
-}
+// const connect_config = {
+//   clientId: client_id,
+//   clean:false,//met en place la session
+//   will:{
+//     topic:"hrdw/state",
+//     payload:"offline",
+//     retain:true
+//   }
+// }
 var connectOptions = {
     host: "127.0.0.1",
     port: 8883,
@@ -28,7 +28,7 @@ var connectOptions = {
     connectTimeout: 2000,
     key: fs.readFileSync("./keys/key.pem"),
     cert: fs.readFileSync("./keys/cert.pem"),*/
-    rejectUnauthorized: false,
+    rejectUnauthorized: false,//a cause du certificat auto-signé!!!
 };
 
 function connect(){

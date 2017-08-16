@@ -10,7 +10,7 @@ import {MQTTServiceConfig} from "./mqtt.config.service";
 //const SUBSCRIBES = ['hrdw/state','hrdw/hello','hrdw/speed','hrdw/temp','hrdw/mem'];
 @Injectable()
 export class MQTTService{
-
+  connectOptions:any = null;
 
   client:MqttClient;
   events:Subject<any> = new Subject<any>();
@@ -25,10 +25,11 @@ export class MQTTService{
   // });
   // getConfigAsObservable():Observable<any>{return this.config.asObservable();}
   connected: boolean = false; //si connecté au serveur
-  url:string;
+  
 
   constructor(config:MQTTServiceConfig){
-    this.url =`ws://${config.host}:${config.port}`;
+    //this.url =`ws://${config.options.host}:${config.port}`;
+    this.connectOptions = config.options;
     this.subscribes = config.subscribes;
   }
 
@@ -41,7 +42,7 @@ export class MQTTService{
         resolve(true);
       }
     try{
-        this.client = connect(this.url);
+        this.client = connect(this.connectOptions);
         this.client.on('connect',()=>{
           //connection OK
           //souscrit aux differents events
